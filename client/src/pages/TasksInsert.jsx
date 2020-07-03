@@ -35,12 +35,11 @@ const CancelButton = styled.a.attrs({
     margin: 15px 15px 15px 5px;
 `
 
-class MoviesUpdate extends Component {
+class TasksInsert extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            id: this.props.match.params.id,
             name: '',
             rating: '',
             time: '',
@@ -65,13 +64,13 @@ class MoviesUpdate extends Component {
         this.setState({ time })
     }
 
-    handleUpdateMovie = async () => {
-        const { id, name, rating, time } = this.state
+    handleIncludeTask = async () => {
+        const { name, rating, time } = this.state
         const arrayTime = time.split('/')
         const payload = { name, rating, time: arrayTime }
 
-        await api.updateMovieById(id, payload).then(res => {
-            window.alert(`Movie updated successfully`)
+        await api.insertTask(payload).then(res => {
+            window.alert(`Task inserted successfully`)
             this.setState({
                 name: '',
                 rating: '',
@@ -80,22 +79,11 @@ class MoviesUpdate extends Component {
         })
     }
 
-    componentDidMount = async () => {
-        const { id } = this.state
-        const movie = await api.getMovieById(id)
-
-        this.setState({
-            name: movie.data.data.name,
-            rating: movie.data.data.rating,
-            time: movie.data.data.time.join('/'),
-        })
-    }
-
     render() {
         const { name, rating, time } = this.state
         return (
             <Wrapper>
-                <Title>Create Movie</Title>
+                <Title>Create Task</Title>
 
                 <Label>Name: </Label>
                 <InputText
@@ -123,11 +111,11 @@ class MoviesUpdate extends Component {
                     onChange={this.handleChangeInputTime}
                 />
 
-                <Button onClick={this.handleUpdateMovie}>Update Movie</Button>
-                <CancelButton href={'/movies/list'}>Cancel</CancelButton>
+                <Button onClick={this.handleIncludeTask}>Add Task</Button>
+                <CancelButton href={'/tasks/list'}>Cancel</CancelButton>
             </Wrapper>
         )
     }
 }
 
-export default MoviesUpdate
+export default TasksInsert

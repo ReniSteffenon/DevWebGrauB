@@ -20,11 +20,11 @@ const Delete = styled.div`
     cursor: pointer;
 `
 
-class UpdateMovie extends Component {
+class UpdateTask extends Component {
     updateUser = event => {
         event.preventDefault()
 
-        window.location.href = `/movies/update/${this.props.id}`
+        window.location.href = `/tasks/update/${this.props.id}`
     }
 
     render() {
@@ -32,16 +32,16 @@ class UpdateMovie extends Component {
     }
 }
 
-class DeleteMovie extends Component {
+class DeleteTask extends Component {
     deleteUser = event => {
         event.preventDefault()
 
         if (
             window.confirm(
-                `Do tou want to delete the movie ${this.props.id} permanently?`,
+                `Do tou want to delete the task ${this.props.id} permanently?`,
             )
         ) {
-            api.deleteMovieById(this.props.id)
+            api.deleteTaskById(this.props.id)
             window.location.reload()
         }
     }
@@ -51,11 +51,11 @@ class DeleteMovie extends Component {
     }
 }
 
-class MoviesList extends Component {
+class TasksList extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            movies: [],
+            tasks: [],
             columns: [],
             isLoading: false,
         }
@@ -64,16 +64,16 @@ class MoviesList extends Component {
     componentDidMount = async () => {
         this.setState({ isLoading: true })
 
-        await api.getAllMovies().then(movies => {
+        await api.getAllTasks().then(tasks => {
             this.setState({
-                movies: movies.data.data,
+                tasks: tasks.data.data,
                 isLoading: false,
             })
         })
     }
 
     render() {
-        const { movies, isLoading } = this.state
+        const { tasks, isLoading } = this.state
 
         const columns = [
             {
@@ -102,7 +102,7 @@ class MoviesList extends Component {
                 Cell: function(props) {
                     return (
                         <span>
-                            <DeleteMovie id={props.original._id} />
+                            <DeleteTask id={props.original._id} />
                         </span>
                     )
                 },
@@ -113,7 +113,7 @@ class MoviesList extends Component {
                 Cell: function(props) {
                     return (
                         <span>
-                            <UpdateMovie id={props.original._id} />
+                            <UpdateTask id={props.original._id} />
                         </span>
                     )
                 },
@@ -121,7 +121,7 @@ class MoviesList extends Component {
         ]
 
         let showTable = true
-        if (!movies.length) {
+        if (!tasks.length) {
             showTable = false
         }
 
@@ -129,7 +129,7 @@ class MoviesList extends Component {
             <Wrapper>
                 {showTable && (
                     <ReactTable
-                        data={movies}
+                        data={tasks}
                         columns={columns}
                         loading={isLoading}
                         defaultPageSize={10}
@@ -142,4 +142,4 @@ class MoviesList extends Component {
     }
 }
 
-export default MoviesList
+export default TasksList
