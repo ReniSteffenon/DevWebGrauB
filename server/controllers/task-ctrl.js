@@ -51,8 +51,7 @@ updateTask = async (req, res) => {
             })
         }
         task.name = body.name
-        task.time = body.time
-        task.rating = body.rating
+        task.done = body.done
         task
             .save()
             .then(() => {
