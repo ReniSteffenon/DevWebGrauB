@@ -36,7 +36,7 @@ class DeleteTask extends Component {
   deleteUser = (event) => {
     event.preventDefault();
 
-    if (window.confirm(`Quer mesmo deletar a tarefa ${this.props.id}?`)) {
+    if (window.confirm(`Quer mesmo deletar esta tarefa?`)) {
       api.deleteTaskById(this.props.id);
       window.location.reload();
     }
@@ -73,11 +73,6 @@ class TasksList extends Component {
 
     const columns = [
       {
-        Header: "ID",
-        accessor: "_id",
-        filterable: true,
-      },
-      {
         Header: "Título",
         accessor: "name",
         filterable: true,
@@ -86,9 +81,7 @@ class TasksList extends Component {
         Header: "Conclusão",
         accessor: "done",
         Cell: (props) => (
-          <span>
-            {`${props.original.done? "concluído" : "inconcluído"}`}
-          </span>
+          <span>{`${props.original.done ? "concluído" : "inconcluído"}`}</span>
         ),
       },
       {
