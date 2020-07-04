@@ -9,7 +9,6 @@ createTask = (req, res) => {
             error: 'You must provide a task',
         })
     }
-
     const task = new Task(body)
 
     if (!task) {
@@ -50,6 +49,7 @@ updateTask = async (req, res) => {
                 message: 'Task not found!',
             })
         }
+        console.log(body)
         task.name = body.name
         task.done = body.done
         task

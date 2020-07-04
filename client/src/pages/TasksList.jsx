@@ -87,10 +87,7 @@ class TasksList extends Component {
         accessor: "done",
         Cell: (props) => (
           <span>
-            {props.value
-              .join(" / ")
-              .replace("true", "pronto")
-              .replace("false", "inconcluído")}
+            {`${props.original.done? "concluído" : "inconcluído"}`}
           </span>
         ),
       },

@@ -123,10 +123,10 @@ class TasksUpdate extends Component {
           />
           <CheckboxWrapper>
             <CheckboxContainer
-              onClick={() => this.setState({ checked: !this.state.checked })}
+              onClick={() => this.setState({ done: !this.state.done })}
             >
-              <HiddenCheckbox checked={this.state.checked} />
-              <StyledCheckbox checked={this.state.checked}>
+              <HiddenCheckbox checked={this.state.done} />
+              <StyledCheckbox checked={this.state.done}>
                 <Icon viewBox="0 0 24 24">
                   <polyline points="20 6 9 17 4 12" />
                 </Icon>
